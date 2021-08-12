@@ -84,22 +84,42 @@ func DisplayAllNotes() {
 	}
 }
 
-func DeleteNote(id string){
+func DeleteNote(id string) {
 	deleteQuery := `DELETE FROM studybuddy WHERE id=?`
 
 	statement, err := db.Prepare(deleteQuery)
 
 	if err != nil {
-		fmt.Printf("Deleting note failed: %s", err)
+		fmt.Println("Deleting note failed:", err)
 		os.Exit(1)
 	}
 
 	_, err = statement.Exec(id)
 
 	if err != nil {
-		fmt.Printf("Deleting note failed: %s", err)
+		fmt.Println("Deleting note failed:", err)
 		os.Exit(1)
 	}
 
 	fmt.Println("Note deleted successfully")
+}
+
+func UpdateNote(id string, column string, value string) {
+	updateQuery := fmt.Sprintf("UPDATE studybuddy SET %v='%v' WHERE id=%v", column, value, id)
+
+	statement, err := db.Prepare(updateQuery)
+
+	if err != nil {
+		fmt.Println("Updating failed:", err)
+		os.Exit(1)
+	}
+
+	_, err = statement.Exec()
+
+	if err != nil {
+		fmt.Println("Updating failed:", err)
+		os.Exit(1)
+	}
+
+	fmt.Println("Note updated successfully")
 }
