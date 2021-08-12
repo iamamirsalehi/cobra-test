@@ -7,8 +7,8 @@ import (
 // noteCmd represents the note command
 var noteCmd = &cobra.Command{
 	Use:   "note",
-	Short: "You can create your notes",
-	Long: `You can create your notes`,
+	Short: "All you need to work with your notes",
+	Long: `All you need to work with your notes`,
 }
 
 func init() {
