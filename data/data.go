@@ -83,3 +83,23 @@ func DisplayAllNotes() {
 		log.Println("[", id, "]", "word: ", word, " - definition: ", definition, " - category: ", category)
 	}
 }
+
+func DeleteNote(id string){
+	deleteQuery := `DELETE FROM studybuddy WHERE id=?`
+
+	statement, err := db.Prepare(deleteQuery)
+
+	if err != nil {
+		fmt.Printf("Deleting note failed: %s", err)
+		os.Exit(1)
+	}
+
+	_, err = statement.Exec(id)
+
+	if err != nil {
+		fmt.Printf("Deleting note failed: %s", err)
+		os.Exit(1)
+	}
+
+	fmt.Println("Note deleted successfully")
+}
